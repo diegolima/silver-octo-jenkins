@@ -42,8 +42,7 @@ pipeline {
           }
         }
         stage('Swarm-3') {
-          steps {
-            environment {
+          environment {
             swarm_address = 'swarm-3.diegolima.org'
           }
           steps {
