@@ -15,6 +15,12 @@ pipeline {
               sh "ssh -o StrictHostKeyChecking=no -l $swarm_login -p $swarm_port swarm-1.diegolima.org docker image prune -a -f"
             }
           },
+          'Swarm-2':{
+            echo 'Swarm-2'
+          },
+          'Swarm-3':{
+            echo 'Swarm-3'
+          },
         )
       }
     }
