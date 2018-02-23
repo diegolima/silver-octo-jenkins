@@ -10,6 +10,11 @@ pipeline {
         
       }
     }
+    stage('Container Cleanup') {
+      steps {
+        echo 'Container Cleanup'
+      }
+    }
   }
   environment {
     swarm_login = 'root'
