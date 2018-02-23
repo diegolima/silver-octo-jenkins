@@ -1,4 +1,5 @@
 pipeline {
+  agent any
   stages {
     stage('swarm-1') {
       steps {
