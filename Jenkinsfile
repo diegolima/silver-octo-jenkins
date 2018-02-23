@@ -12,7 +12,6 @@ pipeline {
             swarm_address = 'swarm-1.diegolima.org'
           }
           steps {
-            sh "ping -c1 $swarm_address"
             sshagent(credentials: ['swarm-root']) {
               sh "ssh -o StrictHostKeyChecking=no -l $swarm_login -p $swarm_port $swarm_address docker container prune -f"
             }
@@ -29,7 +28,6 @@ pipeline {
             swarm_address = 'swarm-2.diegolima.org'
           }
           steps {
-            sh "ping -c1 $swarm_address"
             sshagent(credentials: ['swarm-root']) {
               sh "ssh -o StrictHostKeyChecking=no -l $swarm_login -p $swarm_port $swarm_address docker container prune -f"
             }
@@ -46,7 +44,6 @@ pipeline {
             swarm_address = 'swarm-3.diegolima.org'
           }
           steps {
-            sh "ping -c1 $swarm_address"
             sshagent(credentials: ['swarm-root']) {
               sh "ssh -o StrictHostKeyChecking=no -l $swarm_login -p $swarm_port $swarm_address docker container prune -f"
             }
