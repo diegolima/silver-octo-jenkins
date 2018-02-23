@@ -8,29 +8,55 @@ pipeline {
       }
       parallel {
         stage('Swarm-1') {
+          environment {
+            swarm_address = 'swarm-1.diegolima.org'
+          }
           steps {
+            sh "ping -c1 $swarm_address"
             sshagent(credentials: ['swarm-root']) {
-              sh "ssh -o StrictHostKeyChecking=no -l $swarm_login -p $swarm_port swarm-1.diegolima.org docker container prune -f"
+              sh "ssh -o StrictHostKeyChecking=no -l $swarm_login -p $swarm_port $swarm_address docker container prune -f"
             }
-            
             sshagent(credentials: ['swarm-root']) {
-              sh "ssh -o StrictHostKeyChecking=no -l $swarm_login -p $swarm_port swarm-1.diegolima.org docker volume prune -f"
+              sh "ssh -o StrictHostKeyChecking=no -l $swarm_login -p $swarm_port $swarm_address docker volume prune -f"
             }
-            
             sshagent(credentials: ['swarm-root']) {
-              sh "ssh -o StrictHostKeyChecking=no -l $swarm_login -p $swarm_port swarm-1.diegolima.org docker image prune -a -f"
+              sh "ssh -o StrictHostKeyChecking=no -l $swarm_login -p $swarm_port $swarm_address docker image prune -a -f"
             }
-            
           }
         }
         stage('Swarm-2') {
+          environment {
+            swarm_address = 'swarm-2.diegolima.org'
+          }
           steps {
-            echo 'Swarm-2'
+            sh "ping -c1 $swarm_address"
+            sshagent(credentials: ['swarm-root']) {
+              sh "ssh -o StrictHostKeyChecking=no -l $swarm_login -p $swarm_port $swarm_address docker container prune -f"
+            }
+            sshagent(credentials: ['swarm-root']) {
+              sh "ssh -o StrictHostKeyChecking=no -l $swarm_login -p $swarm_port $swarm_address docker volume prune -f"
+            }
+            sshagent(credentials: ['swarm-root']) {
+              sh "ssh -o StrictHostKeyChecking=no -l $swarm_login -p $swarm_port $swarm_address docker image prune -a -f"
+            }
           }
         }
         stage('Swarm-3') {
           steps {
-            echo 'Swarm-3'
+            environment {
+            swarm_address = 'swarm-3.diegolima.org'
+          }
+          steps {
+            sh "ping -c1 $swarm_address"
+            sshagent(credentials: ['swarm-root']) {
+              sh "ssh -o StrictHostKeyChecking=no -l $swarm_login -p $swarm_port $swarm_address docker container prune -f"
+            }
+            sshagent(credentials: ['swarm-root']) {
+              sh "ssh -o StrictHostKeyChecking=no -l $swarm_login -p $swarm_port $swarm_address docker volume prune -f"
+            }
+            sshagent(credentials: ['swarm-root']) {
+              sh "ssh -o StrictHostKeyChecking=no -l $swarm_login -p $swarm_port $swarm_address docker image prune -a -f"
+            }
           }
         }
       }
